@@ -8,3 +8,7 @@ TWAT uses tools such as `httrack`, `beef-xss`, and `apache2` among others to cre
 ## What's with the name?
 
 We came up with the longer version, `Twin With A Twist`, and didn't see anything wrong. It was only when we made this repo that we noticed the abbriviation.
+
+## Are you gonna change it?
+
+Should be fine, right?
