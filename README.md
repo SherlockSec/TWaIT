@@ -13,6 +13,10 @@ We came up with the longer version, `Twin With A Twist`, and didn't see anything
 
 Should be fine, right?
 
+## How does it work?
+
+TWAT clones a website using `httrack`, then injects a `beef-xss` hook and hosts it locally using `apache2`. This makes an identical copy apart from the hook.
+
 ## Where can we find you?
 
 [@SherlockSec](https://twitter.com/SherlockSec) - Twitter
