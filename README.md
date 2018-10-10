@@ -1,21 +1,17 @@
-# TWAT
-Twin With A Twist (TWAT) is a website cloning with a twist.
+# TWaIT
+Twin With an Interesting Twist (TWaIT) is a website cloning with a twist.
 
-## What is TWAT?
+## What is TWaIT?
 
-TWAT uses tools such as `httrack`, `beef-xss`, and `apache2` among others to create an authentic looking clone.
+TWaIT uses tools such as `httrack`, `beef-xss`, and `apache2` among others to create an authentic looking clone.
 
 ## What's with the name?
 
-We came up with the longer version, `Twin With A Twist`, and didn't see anything wrong. It was only when we made this repo that we noticed the abbriviation.
-
-## Are you gonna change it?
-
-Should be fine, right?
+We originally came up with `Twin With A Twist`, and didn't see anything wrong. It was only when we made this repo that we noticed the abbriviation. We then very quickly changed the name once we realised our mistake. The new name is `Twin With an Interesting Twist`.
 
 ## How does it work?
 
-TWAT clones a website using `httrack`, then injects a `beef-xss` hook and hosts it locally using `apache2`. This makes an identical copy apart from the hook.
+TWaIT clones a website using `httrack`, then injects a `beef-xss` hook and hosts it locally using `apache2`. This makes an identical copy apart from the hook.
 
 ## Where can we find you?
 
