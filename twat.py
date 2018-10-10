@@ -29,6 +29,18 @@ colour_headers = [
 if len(sys.argv) == 1:
     print("Error: no arguments given");
     #Display arguuments here
+    
+'''
+
+Arguments:
+
+-h : Help
+-u : URL
+-o : Output folder
+-a : Start apache2
+-b : Start beef-xss and inject
+
+'''
    
 def DependencyCheck(possible_packages):
     for x in possible_packages:
