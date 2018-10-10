@@ -17,9 +17,11 @@ possible_packages = [
     "apache2",
     "beef-xss",
 ];
+
 colour_headers = [
-    "\033[1;32;40m", #Bright Green   
-    "\033[1;31;40m", #Bright Red    
+    "\x1b[1;32;40m", #Bright Green   
+    "\x1b[1;31;40m", #Bright Red 
+    "\x1b[0m", #White
 ];
 
 
@@ -34,6 +36,6 @@ def DependencyCheck(possible_packages):
         check = subprocess.Popen(["dpkg", "-s", x], stdout=devnull, stderr=subprocess.STDOUT);
         devnull.close();
         if check != 0:
-            print("%sPackage - %s - is not installed." % (colour_headers[1], x));
+            print("%sPackage - %s - is not installed.%s" % (colour_headers[1], x, colour_headers[2]));
         else:
-            print("%sPackage - %s - is installed." % (colour_headers[0], x));
+            print("%sPackage - %s - is installed.%s" % (colour_headers[0], x, colour_headers[2]));
