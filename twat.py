@@ -16,7 +16,7 @@ possible_packages = [
     "httrack",
     "apache2",
     "beef-xss",
-]
+];
 
 
 
@@ -27,7 +27,7 @@ if len(sys.argv) == 1:
 def DependencyCheck(possible_packages):
     for x in possible_packages:
         devnull = open(os.devnull, "w")
-        check = subprocess.Popen(["dpkg", "-s", x], stdout=devnull, stderr=subprocess.STDOUT)
-        devnull.close()
+        check = subprocess.Popen(["dpkg", "-s", x], stdout=devnull, stderr=subprocess.STDOUT);
+        devnull.close();
         if check != 0:
-            print("Package - %s - is not installed." % x)
+            print("Package - %s - is not installed." % x);
