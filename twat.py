@@ -25,10 +25,11 @@ colour_headers = [
 ];
 
 
-
+#Check Arguments
 if len(sys.argv) == 1:
     print("Error: no arguments given");
     #Display arguuments here
+    sys.exit();
     
 '''
 
@@ -41,13 +42,14 @@ Arguments:
 -b : Start beef-xss and inject
 
 '''
-   
+
+#Functions   
 def DependencyCheck(possible_packages):
     for x in possible_packages:
-        devnull = open(os.devnull, "w")
-        check = subprocess.Popen(["dpkg", "-s", x], stdout=devnull, stderr=subprocess.STDOUT);
-        devnull.close();
-        if check != 0:
+        devnull = open(os.devnull, "w") # Opens the OS equivalent of /dev/null
+        check = subprocess.Popen(["dpkg", "-s", x], stdout=devnull, stderr=subprocess.STDOUT); #Runs the debian command to check if a package is installed
+        devnull.close(); #Closes /dev/null
+        if check != 0: #If there is an error message
             print("%sPackage - %s - is not installed.%s" % (colour_headers[1], x, colour_headers[2]));
-        else:
+        else: #If there is no error message
             print("%sPackage - %s - is installed.%s" % (colour_headers[0], x, colour_headers[2]));
