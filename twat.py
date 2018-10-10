@@ -19,20 +19,21 @@ possible_packages = [
 ];
 
 colour_headers = [
-    "\x1b[1;32;40m", #Bright Green   
-    "\x1b[1;31;40m", #Bright Red 
+    "\x1b[1;32;40m", #Bright Green
+    "\x1b[1;31;40m", #Bright Red
     "\x1b[0m", #White
+    "\x1b[1;35;40m" #Purple
 ];
-
-
-#Check Arguments
-if len(sys.argv) == 1:
-    print("Error: no arguments given");
-    #Display arguuments here
-    sys.exit();
-    
+ascii_art = '''
+ _____ _    _  ___ _____
+|_   _| |  | |/ _ \_   _|
+  | | | |  | / /_\ \| |
+  | | | |/\| |  _  || |
+  | | \  /\  / | | || |
+  \_/  \/  \/\_| |_/\_/
 '''
 
+args = '''
 Arguments:
 
 -h : Help
@@ -40,10 +41,18 @@ Arguments:
 -o : Output folder
 -a : Start apache2
 -b : Start beef-xss and inject
-
 '''
+#Check Arguments
+if len(sys.argv) == 1:
+    print("%sError: no arguments given%s" % (colour_headers[1], colour_headers[2]));
+    #Display arguuments here
+    sys.exit();
+elif sys.argv[1] == "-h":
+    print("%s%s%s%s" % (colour_headers[3], ascii_art, colour_headers[2], args)); #Print ascii_art in Purple, followed by available args.
 
-#Functions   
+
+
+#Functions
 def DependencyCheck(possible_packages):
     for x in possible_packages:
         devnull = open(os.devnull, "w") # Opens the OS equivalent of /dev/null
