@@ -64,14 +64,27 @@ def DependencyCheck(possible_packages):
         else: #If command returns false
             print("%sPackage - %s - is not installed.%s" % (colour_headers[1], x, colour_headers[2]));
 
+def ArgCheck(arg):
+    for x in range(0, len(sys.argv)): #For every item in the arguments
+        y = sys.argv[x] #The argument text
+        if y == arg: #If the argument is the same as the expected
+            return x #Return the position of the argument
+    return False #Else, return False
+
 
 
 #Check Arguments
 if len(sys.argv) == 1:
+    print("%s%s%s%s" % (colour_headers[3], ascii_art, colour_headers[2], args)); #Print ascii_art in Purple, followed by available args.
     print("%sError: no arguments given%s" % (colour_headers[1], colour_headers[2]));
-    #Display arguuments here
     sys.exit();
-elif sys.argv[1] == "-h":
+elif "-h" in sys.argv:
     print("%s%s%s%s" % (colour_headers[3], ascii_art, colour_headers[2], args)); #Print ascii_art in Purple, followed by available args.
 elif "-c" in sys.argv:
-    DependencyCheck(possible_packages);
+    DependencyCheck(possible_packages); #Check dependencies
+elif "-u" in sys.argv:
+    pos = ArgCheck("-u") #Position of -u
+    pos += 1 #Position of the url
+    url = sys.argv[pos] #Declare the url
+elif "-u" not in sys.argv:
+    print("%sError: no URL specified%s" % (colour_headers[1], colour_headers[2])); #Throw error
