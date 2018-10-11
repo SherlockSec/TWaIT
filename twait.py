@@ -79,12 +79,18 @@ if len(sys.argv) == 1:
     print("%sError: no arguments given%s" % (colour_headers[1], colour_headers[2]));
     sys.exit();
 elif "-h" in sys.argv:
-    print("%s%s%s%s" % (colour_headers[3], ascii_art, colour_headers[2], args)); #Print ascii_art in Purple, followed by available args.
+        print("%s%s%s%s" % (colour_headers[3], ascii_art, colour_headers[2], args)); #Print ascii_art in Purple, followed by available args.
 elif "-c" in sys.argv:
     DependencyCheck(possible_packages); #Check dependencies
 elif "-u" in sys.argv:
     pos = ArgCheck("-u") #Position of -u
     pos += 1 #Position of the url
     url = sys.argv[pos] #Declare the url
+    if "-o" in sys.argv:
+        posOut = ArgCheck("-o")
+        posOut += 1
+        outputFolder = sys.argv[posOut]
+    elif "-o" not in sys.argv:
+        print("%sError: no output path specified%s" % (colour_headers[1], colour_headers[2])); #Throw error
 elif "-u" not in sys.argv:
     print("%sError: no URL specified%s" % (colour_headers[1], colour_headers[2])); #Throw error
