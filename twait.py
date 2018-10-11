@@ -71,6 +71,16 @@ def ArgCheck(arg):
             return x #Return the position of the argument
     return False #Else, return False
 
+def WebsiteClone(url, folder): #httrack usage - 'httrack <URL> -O <FOLDER>'
+    instance = subprocess.Popen(["httrack", url, "-O", folder], stdout=subprocess.PIPE)
+    while True:
+        output = process.stdout.readline()
+        if output == '' and process.poll() is not None:
+            break
+        if output:
+            print(output.strip())
+    rc = process.poll()
+    return rc
 
 
 #Check Arguments
