@@ -74,13 +74,14 @@ def ArgCheck(arg):
 def WebsiteClone(url, folder): #httrack usage - 'httrack <URL> -O <FOLDER>'
     instance = subprocess.Popen(["httrack", url, "-O", folder], stdout=subprocess.PIPE)
     while True:
-        output = process.stdout.readline()
-        if output == '' and process.poll() is not None:
+        output = instance.stdout.readline()
+        if output == '' and instance.poll() is not None:
             break
         if output:
             print(output.strip())
-    rc = process.poll()
+    rc = instance.poll()
     return rc
+
 
 
 #Check Arguments
@@ -100,6 +101,8 @@ elif "-u" in sys.argv:
         posOut = ArgCheck("-o")
         posOut += 1
         outputFolder = sys.argv[posOut]
+        WebsiteClone(url, outputFolder)
+        print("\nFinished Cloning")
     elif "-o" not in sys.argv:
         print("%sError: no output path specified%s" % (colour_headers[1], colour_headers[2])); #Throw error
 elif "-u" not in sys.argv:
