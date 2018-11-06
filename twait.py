@@ -62,7 +62,7 @@ def DependencyCheck(possible_packages):
         if "install ok installed" in out: #If command returns true
             print("%sPackage - %s - is installed.%s" % (colour_header.green, x, colour_header.white));
         else: #If command returns false
-            print("%sPackage - %s - is not installed.%s" % (colour_header.red, x, colour_header.white]));
+            print("%sPackage - %s - is not installed.%s" % (colour_header.red, x, colour_header.white));
 
 def ArgCheck(arg):
     for x in range(0, len(sys.argv)): #For every item in the arguments
@@ -73,6 +73,17 @@ def ArgCheck(arg):
 
 def WebsiteClone(url, folder): #httrack usage - 'httrack <URL> -O <FOLDER>'
     instance = subprocess.Popen(["httrack", url, "-O", folder], stdout=subprocess.PIPE)
+    while True:
+        output = instance.stdout.readline()
+        if output == '' and instance.poll() is not None:
+            break
+        if output:
+            print(output.strip())
+    rc = instance.poll()
+    return rc
+
+def BeEFStart():
+    instance = subprocess.Popen(["sudo", "beef-xss"], stdout=subprocess.PIPE)
     while True:
         output = instance.stdout.readline()
         if output == '' and instance.poll() is not None:
@@ -103,6 +114,8 @@ elif "-u" in sys.argv:
         outputFolder = sys.argv[posOut]
         WebsiteClone(url, outputFolder)
         print("\nFinished Cloning")
+        print("\nNow starting beef-xss. beef-xss requires root.")
+        BeEFStart()
     elif "-o" not in sys.argv:
         print("%sError: no output path specified%s" % (colour_headers.red, colour_header.white)); #Throw error
 elif "-u" not in sys.argv:
