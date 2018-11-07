@@ -97,11 +97,11 @@ def BeEFStart():
 
 #Check Arguments
 if len(sys.argv) == 1:
-    print("%s%s%s%s" % (colour_headers.purple, ascii_art, colour_header.white, args)); #Print ascii_art in Purple, followed by available args.
-    print("%sError: no arguments given%s" % (colour_headers.red, colour_header.white));
+    print("%s%s%s%s" % (colour_header.purple, ascii_art, colour_header.white, args)); #Print ascii_art in Purple, followed by available args.
+    print("%sError: no arguments given%s" % (colour_header.red, colour_header.white));
     sys.exit();
 elif "-h" in sys.argv:
-        print("%s%s%s%s" % (colour_headers.purple, ascii_art, colour_header.white, args)); #Print ascii_art in Purple, followed by available args.
+        print("%s%s%s%s" % (colour_header.purple, ascii_art, colour_header.white, args)); #Print ascii_art in Purple, followed by available args.
 elif "-c" in sys.argv:
     DependencyCheck(possible_packages); #Check dependencies
 elif "-u" in sys.argv:
@@ -117,6 +117,6 @@ elif "-u" in sys.argv:
         print("\nNow starting beef-xss. beef-xss requires root.")
         BeEFStart()
     elif "-o" not in sys.argv:
-        print("%sError: no output path specified%s" % (colour_headers.red, colour_header.white)); #Throw error
+        print("%sError: no output path specified%s" % (colour_header.red, colour_header.white)); #Throw error
 elif "-u" not in sys.argv:
-    print("%sError: no URL specified%s" % (colour_headers.red, colour_header.white)); #Throw error
+    print("%sError: no URL specified%s" % (colour_header.red, colour_header.white)); #Throw error
