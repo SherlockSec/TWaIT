@@ -1,6 +1,6 @@
 # Twin With an Interesting Twist 
 
-![License](https://img.shields.io/badge/license-GPL-blue.svg) [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/) [![Discord](https://img.shields.io/discord/510106152646868998.svg)](https://discord.gg/aJdA24U) [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/badges/shields.svg)](https://github.com/SherlockSec/TWaIT) [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/SherlockSec)
+![License](https://img.shields.io/badge/license-GPL-blue.svg) [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/) [![Discord](https://img.shields.io/discord/510106152646868998.svg)](https://discord.gg/aJdA24U) [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/badges/shields.svg)](https://github.com/SherlockSec/TWaIT) [![Twitter Follow](https://img.shields.io/twitter/follow/SherlockSec.svg?label=Follow&style=social)](https://twitter.com/SherlockSec)
   
 Twin With an Interesting Twist (TWaIT) is a website cloning with a twist.
 
