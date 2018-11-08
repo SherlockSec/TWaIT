@@ -1,4 +1,5 @@
 # TWaIT
+![License](https://img.shields.io/badge/license-GPL-blue.svg)  
 Twin With an Interesting Twist (TWaIT) is a website cloning with a twist.
 
 ## What is TWaIT?
