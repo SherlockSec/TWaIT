@@ -1,27 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-
-
 #Metadata
 __author__ = "SherlockSec";
 __version__ = "1.0";
 __license__ = "GPL-3.0";
-
-
-
 #Imports
-import sys;
-import os;
-import subprocess;
+import sys, os, subprocess, fileinput, http.server, socketserver
 from subprocess import check_output;
-import fileinput;
-import http.server
-import socketserver
-import os
-
-
-
 #Declarations
 possible_packages = [
     "httrack",
@@ -54,9 +39,6 @@ Arguments:
 -c : Check dependencies
 -i : Install dependencies
 '''
-
-
-
 #Functions
 def DependencyCheck(possible_packages):
     for x in possible_packages:
