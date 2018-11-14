@@ -16,6 +16,9 @@ We originally came up with `Twin With A Twist`, and didn't see anything wrong. I
 
 TWaIT clones a website using `httrack`, then injects a `beef-xss` hook and hosts it locally using `apache2`. This makes an identical copy apart from the hook.
 
+## How do you get it?
+```git clone https://github.com/SherlockSec/TWaIT && cd TWaIT && chmod +x main.py && ./main.py -i```
+
 ## How do you use it?
 
 The useage of the tool is as follows   
