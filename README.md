@@ -14,7 +14,7 @@ We originally came up with `Twin With A Twist`, and didn't see anything wrong. I
 
 ## How does it work?
 
-TWaIT clones a website using `httrack`, then injects a `beef-xss` hook and hosts it locally using `apache2`. This makes an identical copy apart from the hook.
+TWaIT clones a website using `httrack`, then injects a `beef-xss` hook and hosts it locally using a `python3` http server. This makes an identical copy apart from the hook.
 
 ## How do you get it?
 ```git clone https://github.com/SherlockSec/TWaIT && cd TWaIT && chmod +x twait.py && ./twait.py -i```
@@ -30,3 +30,4 @@ And here is an example:
 ## Where can we find you?
 
 [@SherlockSec](https://twitter.com/SherlockSec) - Twitter
+[SherlockSec](https://medium.com/@dan_41424) - Medium
