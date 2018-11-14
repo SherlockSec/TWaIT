@@ -10,7 +10,6 @@ from subprocess import check_output;
 #Declarations
 possible_packages = [
     "httrack",
-    "apache2",
     "beef-xss",
 ];
 
@@ -34,8 +33,7 @@ Arguments:
 -h : Help
 -u : URL
 -o : Output folder
--a : Start apache2
--b : Start beef-xss and inject
+-p : BeEF Hook IP Address
 -c : Check dependencies
 -i : Install dependencies
 '''
@@ -140,7 +138,7 @@ elif "-u" in sys.argv:
             httpHost();
         elif "-p" not in sys.argv:
             #Local IP for beef-xss error
-            print("error")
+            print("%sError: no BeEF Hook IP Address specified%s" % (colour_header.red, colour_header.white));
         elif "-o" not in sys.argv:
             print("%sError: no output path specified%s" % (colour_header.red, colour_header.white)); #Throw error
 elif "-u" not in sys.argv:
