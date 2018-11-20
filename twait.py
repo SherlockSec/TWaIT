@@ -32,6 +32,7 @@ Arguments:
 
 -h : Help
 -u : URL
+-r : Use a previous clone
 -o : Output folder
 -p : BeEF Hook IP Address
 -c : Check dependencies
@@ -142,4 +143,23 @@ elif "-u" in sys.argv:
         elif "-o" not in sys.argv:
             print("%sError: no output path specified%s" % (colour_header.red, colour_header.white)); #Throw error
 elif "-u" not in sys.argv:
-    print("%sError: no URL specified%s" % (colour_header.red, colour_header.white)); #Throw error
+    if "-r" in sys.argv:
+        if "-o" in sys.argv:
+            if "-p" in sys.argv:
+                ipOut = ArgCheck("-p");
+                ipOut += 1;
+                localIP = sys.argv[ipOut];
+                posOut = ArgCheck("-o");
+                posOut += 1;
+                outputFolder = sys.argv[posOut];
+                print("\nNow starting beef-xss.");
+                BeEFStart();
+                print("\nStarting the http server")
+                httpHost();
+            elif "-p" not in sys.argv:
+                #Local IP for beef-xss error
+                print("%sError: no BeEF Hook IP Address specified%s" % (colour_header.red, colour_header.white));
+            elif "-o" not in sys.argv:
+                print("%sError: no output path specified%s" % (colour_header.red, colour_header.white)); #Throw error
+    else:
+        print("%sError: no site specified%s" % (colour_header.red, colour_header.white)); #Throw error
